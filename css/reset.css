@@ -39,4 +39,12 @@ li {
 	list-style: none;
 }
 
+h1,h2,h3 {
+	font-family: 'Merriweather', sans-serif;
+}
+
+p, span, a {
+	font-family: Mulish;
+}
+
 /* -----------reset end------------ */
