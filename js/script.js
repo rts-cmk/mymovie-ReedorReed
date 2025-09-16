@@ -1,22 +1,14 @@
-const apiCredits = {
-	headers: {
-		accept: 'application/json',
-		Authorization:
-			'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRhZmYzZmE3NWUyYmVkMjc5N2U5Mzc5NWUyMzNkMCIsIm5iZiI6MTc1NDU3MDQwMi44NDgsInN1YiI6IjY4OTQ5ZWEyNTgwOGQ2MTVlNDkyMjNlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.izL8ZRorjEdMvkctVUiMmYb0eu93iytVt1nvjRBZNfY'
-	}
-};
-
 //Container div
 const container = document.querySelector('#container');
 const myMoviesHeader = `<header class="header"><h1 class="header__title">MyMovies</h1> <label class="switch">
   <input type="checkbox">
   <span class="slider round"></span>
 </label></header>`;
-container.insertAdjacentHTML('beforeend', myMoviesHeader)
+container.insertAdjacentHTML('beforeend', myMoviesHeader);
 //Now Playing wrapper div
-const movieNowElm = `<section id="movie__now-wrapper"><header class="movie__now-header"><h2 class="movie__now-title">Now Showing</h2> <a href="#" class="seeMoreBtn">See more</a></header></section>`;
+const movieNowElm = `<section id="movie__now-wrapper"><header class="movie__now-header"><h2 class="movie__now-title">Now Showing</h2> <a href="#" class="seeMoreBtn">See more</a></header><div id="movie__now-slider"></div></section>`;
 container.insertAdjacentHTML('beforeend', movieNowElm);
-const movieNowWrapper = document.querySelector('#movie__now-wrapper');
+const movieNowSlider = document.querySelector('#movie__now-slider');
 //Popular Movie wrapper div
 const moviePopElm = `<section id="movie__pop-wrapper"><header class="movie__pop-header"><h2 class="movie__pop-title">Popular</h2> <a href="#" class="seeMoreBtn">See more</a></header></section>`;
 container.insertAdjacentHTML('beforeend', moviePopElm);
@@ -32,20 +24,20 @@ fetch('https://api.themoviedb.org/3/movie/now_playing', apiCredits).then(
 			const movieCards = movies.results
 				.map((movie) => {
 					return /*html */ `
-            <article class="movie__now">
+            <article class="movie__now-card">
                 <img src="${baseImgUrl + movie.poster_path}" alt="${
 						movie.title
-					} poster">
+					} poster" class="movie__poster">
                 <h2>${movie.title}</h2>
                 <div class="rating">
-                <img src="./icons/ratingStar.svg" alt="Rating star icon">
+                <img src="./icons/ratingStar.svg" alt="Rating star icon" class="rating__star">
                 <p>${movie.vote_average.toFixed(1)}/10</p>
                 </div>
             </article>
             `;
 				})
 				.join('');
-			movieNowWrapper.insertAdjacentHTML('beforeend', movieCards);
+			movieNowSlider.insertAdjacentHTML('beforeend', movieCards);
 		})
 );
 
